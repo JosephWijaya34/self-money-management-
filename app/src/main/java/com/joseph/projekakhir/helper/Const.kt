@@ -1,5 +1,5 @@
 package com.joseph.projekakhir.helper
 
 object Const {
-    const val BASE_URL_LOCALHOST = "http://192.168.18.46:7070/"
+    const val BASE_URL_LOCALHOST = "http://192.168.18.49:7070/"
 }

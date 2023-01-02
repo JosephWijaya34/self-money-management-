@@ -3,11 +3,7 @@ package com.joseph.projekakhir.retrofit
 import com.joseph.projekakhir.model.*
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface EndPointApi {
 //    users api
@@ -20,8 +16,13 @@ interface EndPointApi {
         @Field("password") password: String
 //    @Query("userData") userData: DataUser
     ): Call<SubmitRegister>
+//currency
+@GET("https://api.frankfurter.app/latest")
+suspend fun getRates(
+    @Query("base") base: String
+):Response<Currency>
 
-//cek login
+    //cek login
     @FormUrlEncoded
     @POST("login")
     fun loginUser(

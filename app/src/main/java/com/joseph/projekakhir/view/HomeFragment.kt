@@ -13,6 +13,7 @@ import com.joseph.projekakhir.databinding.FragmentHomeBinding
 import com.joseph.projekakhir.view.MainActivity.Companion.login_id
 import com.joseph.projekakhir.viewmodel.UsersViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,8 +44,42 @@ class HomeFragment : Fragment() {
 
 //            binding.textView30.text=response.email
         })
+        welcome()
         // Inflate the layout for this fragment
         return binding.root
+    }
+    fun welcome() {
+        //get current local time
+        val currentDay= Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+        val currentMonth=Calendar.getInstance().get(Calendar.MONTH)
+        val currentYear=Calendar.getInstance().get(Calendar.YEAR)
+
+        if (currentMonth == 0){
+            binding.tanggal.text=("$currentDay Januari $currentYear")
+        } else if (currentMonth == 1){
+            binding.tanggal.text=("$currentDay Februari $currentYear")
+        }else if (currentMonth == 2){
+            binding.tanggal.text=("$currentDay Maret $currentYear")
+        }else if (currentMonth == 3){
+            binding.tanggal.text=("$currentDay April $currentYear")
+        }else if (currentMonth == 4){
+            binding.tanggal.text=("$currentDay Mei $currentYear")
+        }else if (currentMonth == 5){
+            binding.tanggal.text=("$currentDay Juni $currentYear")
+        }else if (currentMonth == 6){
+            binding.tanggal.text=("$currentDay Juli $currentYear")
+        }else if (currentMonth == 7){
+            binding.tanggal.text=("$currentDay Agustus $currentYear")
+        }else if (currentMonth == 8){
+            binding.tanggal.text=("$currentDay September $currentYear")
+        }else if (currentMonth == 9){
+            binding.tanggal.text=("$currentDay Oktober $currentYear")
+        }else if (currentMonth == 10){
+            binding.tanggal.text=("$currentDay November $currentYear")
+        }else if (currentMonth == 11){
+            binding.tanggal.text=("$currentDay Desember $currentYear")
+        }
+
     }
 
 

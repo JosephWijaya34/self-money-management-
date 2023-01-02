@@ -1,17 +1,16 @@
 package com.joseph.projekakhir.view
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.joseph.projekakhir.adapter.ConverterAdapter
-import com.joseph.projekakhir.databinding.FragmentConverterBinding
-import com.joseph.projekakhir.model.Currency
-import com.joseph.projekakhir.model.Rates
+
+import androidx.lifecycle.lifecycleScope
+import com.joseph.projekakhir.databinding.FragmentConvertersBinding
 import com.joseph.projekakhir.viewmodel.ConverterViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,25 +27,48 @@ private const val ARG_PARAM2="param2"
 @AndroidEntryPoint
 class ConverterFragment : Fragment() {
 
-    private lateinit var binding: FragmentConverterBinding
-    private lateinit var viewModel: ConverterViewModel
-    private lateinit var adapter: ConverterAdapter
-
+    private lateinit var binding: FragmentConvertersBinding
+    private val viewModel: ConverterViewModel by lazy {
+        ViewModelProvider(this).get(ConverterViewModel::class.java)
+    }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-      binding = FragmentConverterBinding.inflate(inflater, container, false)
-//        viewModel = ViewModelProvider(this).get(ConverterViewModel::class.java)
-//        viewModel.getRate()
-//
-//        viewModel.rate.observe(viewLifecycleOwner, Observer{response->
-//            binding.moneyConverterRV.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//            adapter = ConverterAdapter(response.rates as Currency)
-//            binding.moneyConverterRV.adapter = adapter
-//        })
+
+        binding = FragmentConvertersBinding.inflate(layoutInflater)
+
+        binding.btnConvert.setOnClickListener {
+            viewModel.convert(
+                binding.etFrom.text.toString(),
+                binding.spFromCurrency.selectedItem.toString(),
+                binding.spToCurrency.selectedItem.toString(),
+            )
+        }
+        lifecycleScope.launchWhenStarted {
+            viewModel.conversion.collect { event ->
+                when(event) {
+                    is ConverterViewModel.CurrencyEvent.Success -> {
+                        binding.progressBar.isVisible = false
+                        binding.tvResult.setTextColor(Color.BLACK)
+                        binding.tvResult.text = event.resultText
+                    }
+                    is ConverterViewModel.CurrencyEvent.Failure -> {
+                        binding.progressBar.isVisible = false
+                        binding.tvResult.setTextColor(Color.RED)
+                        binding.tvResult.text = event.errorText
+                    }
+                    is ConverterViewModel.CurrencyEvent.Loading -> {
+                        binding.progressBar.isVisible = true
+                    }
+                    else -> Unit
+                }
+            }
+        }
+
+
         return binding.root
     }
 
