@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.AddPlannerActivity">
+
+  <ImageButton
+      android:id="@+id/backAddPage_Button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="15dp"
+      android:layout_marginTop="15dp"
+      android:backgroundTint="#FEFEFE"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/back"
+      tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+  <ImageView
+      android:id="@+id/InputPlanner_img"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="75dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_launcher_foreground" />
+
+  <androidx.cardview.widget.CardView
+      android:id="@+id/namaBarang_cardView"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="30dp"
+      android:layout_marginTop="30dp"
+      android:layout_marginEnd="30dp"
+      app:cardCornerRadius="15dp"
+      app:cardElevation="10dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/InputPlanner_img">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/namaBarang_TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <com.google.android.material.textfield.TextInputEditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:backgroundTint="#FEFEFE"
+          android:hint="Nama Barang" />
+    </com.google.android.material.textfield.TextInputLayout>
+  </androidx.cardview.widget.CardView>
+
+  <androidx.cardview.widget.CardView
+      android:id="@+id/hargaBarang_cardView"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="30dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginEnd="30dp"
+      app:cardCornerRadius="15dp"
+      app:cardElevation="10dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/namaBarang_cardView">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/harga_TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <com.google.android.material.textfield.TextInputEditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:backgroundTint="#FEFEFE"
+          android:hint="Harga" />
+    </com.google.android.material.textfield.TextInputLayout>
+  </androidx.cardview.widget.CardView>
+
+  <androidx.cardview.widget.CardView
+      android:id="@+id/waktuPlanBarang_cardView"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="30dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginEnd="30dp"
+      app:cardCornerRadius="15dp"
+      app:cardElevation="10dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/hargaBarang_cardView">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/waktuPlanBarang_TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <com.google.android.material.textfield.TextInputEditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:backgroundTint="#FEFEFE"
+          android:hint="Waktu" />
+    </com.google.android.material.textfield.TextInputLayout>
+  </androidx.cardview.widget.CardView>
+
+  <Button
+      android:id="@+id/button"
+      android:layout_width="0dp"
+      android:layout_height="60dp"
+      android:layout_marginStart="30dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginEnd="30dp"
+      android:backgroundTint="#3862F8"
+      android:text="Simpan"
+      app:cornerRadius="15dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/waktuPlanBarang_cardView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

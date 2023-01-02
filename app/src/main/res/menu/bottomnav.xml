@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/homenav"
+        android:title="home" />
+    <item
+        android:id="@+id/plannerFragment"
+        android:icon="@drawable/plannernav"
+        android:title="planner" />
+    <item
+        android:id="@+id/addFragment"
+        android:icon="@android:drawable/ic_input_add"
+        android:title="add" />
+    <item
+        android:id="@+id/converterFragment"
+        android:icon="@drawable/converternav"
+        android:title="converter" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/settingnav"
+        android:title="settings" />
+</menu>
