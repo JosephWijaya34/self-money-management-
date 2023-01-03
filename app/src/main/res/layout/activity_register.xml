@@ -134,8 +134,8 @@
                 android:id="@+id/passwordReg_TextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="password"
-                android:password="true"
+                android:hint="kata sandi"
+                android:inputType="textPassword"
                 android:textColor="#4C6094" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.cardview.widget.CardView>

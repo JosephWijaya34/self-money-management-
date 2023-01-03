@@ -1,6 +1,7 @@
 package com.joseph.projekakhir.view
 
 import android.app.Application
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,12 +16,6 @@ import com.joseph.projekakhir.adapter.PlanAdapter
 import com.joseph.projekakhir.databinding.FragmentPlannerBinding
 import com.joseph.projekakhir.viewmodel.PlannerViewModel
 import dagger.hilt.android.AndroidEntryPoint
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1="param1"
-private const val ARG_PARAM2="param2"
-
 /**
  * A simple [Fragment] subclass.
  * Use the [PlannerFragment.newInstance] factory method to
@@ -38,7 +33,6 @@ class PlannerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
        binding = FragmentPlannerBinding.inflate(inflater, container, false)
-
         viewModel = ViewModelProvider(this).get(PlannerViewModel::class.java)
         viewModel.getPlan()
 
@@ -48,9 +42,13 @@ class PlannerFragment : Fragment() {
             binding.PlannerRV.adapter = adapterplaner
         })
 
+//        add plan
+        binding.addPlannerPageTextView.setOnClickListener {
+            val myIntent = Intent(context, AddPlannerActivity::class.java).putExtra("login_id", 0)
+            startActivity(myIntent)
+        }
 
         return binding.root
     }
-
 
 }

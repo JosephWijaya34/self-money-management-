@@ -12,15 +12,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PlannerViewModel @Inject constructor(private val repository: PlannerRepository) : ViewModel() {
+class PlannerViewModel @Inject constructor(private val repository: PlannerRepository) :
+    ViewModel() {
+    //    add planner
+    fun AddPlaner(id_user: Int, name: String, price: Int, time: Int)=repository.addPlanner(id_user, name, price, time)
+
     //get now playing data
     val _plan: MutableLiveData<Plan> by lazy {
         MutableLiveData<Plan>()
     }
-
     val plan: LiveData<Plan> get()=_plan
-
-     fun getPlan()= viewModelScope.launch {
+    fun getPlan()=viewModelScope.launch {
         repository.getPlanner().let { response ->
             if (response.isSuccessful) {
                 _plan.postValue(response.body() as Plan)
@@ -28,7 +30,7 @@ class PlannerViewModel @Inject constructor(private val repository: PlannerReposi
                 Log.e("Get Data", "Failed!")
             }
         }
-     }
+    }
 
 
 }

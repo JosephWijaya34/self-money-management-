@@ -31,6 +31,7 @@
             android:layout_marginTop="15dp"
             android:backgroundTint="#FFFFFF"
             android:src="@drawable/back"
+            android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -65,7 +66,7 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/namaUserSettings_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Self-Money Management"
@@ -81,10 +82,10 @@
             android:text="smm3@gmail.com"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView12" />
+            app:layout_constraintTop_toBottomOf="@+id/namaUserSettings_textView" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView2"
+            android:id="@+id/changepasswordSettings_cardView"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginStart="30dp"
@@ -104,17 +105,17 @@
                 android:backgroundTint="#FEFEFE">
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/changepasswordSettings_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="Ubah Kata Sandi"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView7"
+                    app:layout_constraintStart_toEndOf="@+id/changepasswordSettings_imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView7"
+                    android:id="@+id/changepasswordSettings_imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -126,7 +127,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView3"
+            android:id="@+id/callSettings_cardView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="30dp"
@@ -135,24 +136,24 @@
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView2">
+            app:layout_constraintTop_toBottomOf="@+id/changepasswordSettings_cardView">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView15"
+                    android:id="@+id/callSettings_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="Hubungi Kami"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView8"
+                    app:layout_constraintStart_toEndOf="@+id/callSettings_imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView8"
+                    android:id="@+id/callSettings_imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -164,6 +165,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/logoutSettings_cardView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="30dp"
@@ -172,24 +174,24 @@
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView3">
+            app:layout_constraintTop_toBottomOf="@+id/callSettings_cardView">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView16"
+                    android:id="@+id/logoutSettings_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:text="Keluar Sesi"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView9"
+                    app:layout_constraintStart_toEndOf="@+id/logoutSettings_imageView"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/imageView9"
+                    android:id="@+id/logoutSettings_imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"

@@ -22,6 +22,7 @@ import java.util.*
  */
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+
   private lateinit var binding: FragmentHomeBinding
   private lateinit var viewModel: UsersViewModel
 
@@ -30,14 +31,12 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentHomeBinding.inflate(layoutInflater)
-        Toast.makeText(context, "Id : "+login_id, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, "Id : "+login_id, Toast.LENGTH_SHORT).show()
         viewModel = ViewModelProvider(this).get(UsersViewModel::class.java)
         viewModel.getUserbyId(login_id)
         viewModel.user.observe(viewLifecycleOwner, Observer{ response ->
-            Toast.makeText(context, "Username = "+response.username, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, "Username = "+response.username, Toast.LENGTH_SHORT).show()
             binding.username.text=response.username
-
-//            binding.textView30.text=response.email
         })
         welcome()
         // Inflate the layout for this fragment

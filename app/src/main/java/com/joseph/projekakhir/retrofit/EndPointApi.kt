@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface EndPointApi {
-//    users api
+    //    users api
     @FormUrlEncoded
     @POST("user")
     fun addUser(
@@ -14,13 +14,13 @@ interface EndPointApi {
         @Field("username") username: String,
         @Field("image") image: String,
         @Field("password") password: String
-//    @Query("userData") userData: DataUser
     ): Call<SubmitRegister>
-//currency
-@GET("https://api.frankfurter.app/latest")
-suspend fun getRates(
-    @Query("base") base: String
-):Response<Currency>
+
+    //currency
+    @GET("https://api.frankfurter.app/latest")
+    suspend fun getRates(
+        @Query("base") base: String
+    ): Response<Currency>
 
     //cek login
     @FormUrlEncoded
@@ -30,15 +30,19 @@ suspend fun getRates(
         @Field("password") password: String
     ): Call<SubmitLogin>
 
-//    planner api
+    //    planner api
     @GET("plan")
     suspend fun ambilPlan(
-    ):Response<Plan>
+    ): Response<Plan>
 
-//    currency api
-    @GET("currency")
-    suspend fun ambilCurrency(
-    ):Response<Currency>
+    @FormUrlEncoded
+    @POST("plan")
+    fun addPlan(
+        @Field("id_user") id_user: Int,
+        @Field("name") name: String,
+        @Field("price") price: Int,
+        @Field("time") time: Int
+    ): Call<addPlanner>
 
     //   get user by id
     @GET("user/{id}")

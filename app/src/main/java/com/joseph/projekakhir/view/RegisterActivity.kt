@@ -67,7 +67,7 @@ class RegisterActivity : AppCompatActivity() {
 
             if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
                 viewModel=ViewModelProvider(this)[UsersViewModel::class.java]
-                viewModel.addUser(username, email, image, password).enqueue(object :Callback<SubmitRegister> {
+                viewModel.addUser(email, username, image, password).enqueue(object :Callback<SubmitRegister> {
                     override fun onResponse(call: Call<SubmitRegister>, response: Response<SubmitRegister>) {
                         if (response.isSuccessful) {
                             Toast.makeText(this@RegisterActivity, "Berhasil mendaftar", Toast.LENGTH_SHORT).show()
