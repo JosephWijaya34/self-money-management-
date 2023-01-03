@@ -37,14 +37,6 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun registerClick() {
         viewBind.daftarButton.setOnClickListener {
-//            User=DataUser(
-//                username=viewBind.namaPenggunaRegTextInputEditText.text!!.toString().trim(),
-//                email=viewBind.EmailRegTextInputEditText.text!!.toString().trim(),
-//                image= "",
-//                password=viewBind.passwordRegTextInputEditText.text!!.toString().trim()
-//            )
-//            viewModel.addUser(User)
-
             val username=viewBind.namaPenggunaRegTextInputEditText.text.toString().trim()
             val email=viewBind.EmailRegTextInputEditText.text.toString().trim()
             val image = ""
@@ -75,23 +67,21 @@ class RegisterActivity : AppCompatActivity() {
 
             if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
                 viewModel=ViewModelProvider(this)[UsersViewModel::class.java]
-                viewModel.addUser(email,username, image, password).enqueue(object : Callback<SubmitRegister> {
+                viewModel.addUser(username, email, image, password).enqueue(object :Callback<SubmitRegister> {
                     override fun onResponse(call: Call<SubmitRegister>, response: Response<SubmitRegister>) {
                         if (response.isSuccessful) {
+                            Toast.makeText(this@RegisterActivity, "Berhasil mendaftar", Toast.LENGTH_SHORT).show()
                             val myIntent = Intent(this@RegisterActivity, LoginActivity::class.java)
-                            Toast.makeText(this@RegisterActivity, "Register Berhasil", Toast.LENGTH_LONG).show()
-                            myIntent.flags=Intent.FLAG_ACTIVITY_CLEAR_TOP
                             startActivity(myIntent)
-                            finish()
                         } else {
-                            Toast.makeText(this@RegisterActivity, "Register Gagal", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@RegisterActivity, "Gagal mendaftar", Toast.LENGTH_SHORT).show()
                         }
                     }
+
                     override fun onFailure(call: Call<SubmitRegister>, t: Throwable) {
                         Log.d("RegisterActivity", "onFailure: ${t.message}")
                     }
                 })
-
             }
         }
     }

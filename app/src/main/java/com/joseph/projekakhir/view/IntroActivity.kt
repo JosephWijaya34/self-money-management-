@@ -19,6 +19,19 @@ class IntroActivity : AppCompatActivity() {
         viewBind.introMasukButton.setOnClickListener {
             val myIntent = Intent(this, LoginActivity::class.java)
             startActivity(myIntent)
+            finish()
+        }
+
+//        register button
+        viewBind.introBikinAkunTextView.setOnClickListener {
+            val myIntent = Intent(this, RegisterActivity::class.java)
+            startActivity(myIntent)
+            finish()
+        }
+        viewBind.introBikinAkun2TextView.setOnClickListener {
+            val myIntent = Intent(this, RegisterActivity::class.java)
+            startActivity(myIntent)
+            finish()
         }
     }
 }

@@ -78,7 +78,7 @@
                 android:id="@+id/EmailLog_TextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="nama pengguna"
+                android:hint="Email"
                 android:textColor="#4C6094"
                 android:textColorHint="#4C6094" />
         </com.google.android.material.textfield.TextInputLayout>
