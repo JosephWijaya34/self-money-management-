@@ -13,5 +13,10 @@ class ChangePasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBind=ActivityChangePasswordBinding.inflate(layoutInflater)
         setContentView(viewBind.root)
+
+//        back button
+        viewBind.backCPButton.setOnClickListener {
+            finish()
+        }
     }
 }

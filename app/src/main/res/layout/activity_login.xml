@@ -79,6 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
+                android:text="joseph@gmail.com"
                 android:textColor="#4C6094"
                 android:textColorHint="#4C6094" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -109,6 +110,7 @@
                 android:layout_height="wrap_content"
                 android:hint="kata sandi"
                 android:inputType="textPassword"
+                android:text="joseph123"
                 android:textColor="#4C6094"
                 android:textColorHint="#4C6094" />
         </com.google.android.material.textfield.TextInputLayout>

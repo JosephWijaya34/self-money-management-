@@ -41,6 +41,14 @@ class SettingsFragment : Fragment() {
             viewBind.emailProfileTextView.text=response.email
         })
 
+//        masuk change password
+        viewBind.changepasswordSettingsCardView.setOnClickListener {
+            val intent = Intent(activity, ChangePasswordActivity::class.java).apply {
+                putExtra("id", login_id)
+            }
+            startActivity(intent)
+        }
+
         listener()
         return viewBind.root
     }

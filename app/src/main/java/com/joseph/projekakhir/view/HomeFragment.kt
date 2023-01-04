@@ -1,6 +1,8 @@
 package com.joseph.projekakhir.view
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.joseph.projekakhir.R
 import com.joseph.projekakhir.databinding.FragmentHomeBinding
 import com.joseph.projekakhir.view.MainActivity.Companion.login_id
+import com.joseph.projekakhir.viewmodel.UangViewModel
 import com.joseph.projekakhir.viewmodel.UsersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -25,23 +28,59 @@ class HomeFragment : Fragment() {
 
   private lateinit var binding: FragmentHomeBinding
   private lateinit var viewModel: UsersViewModel
+  private lateinit var viewModelUang: UangViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentHomeBinding.inflate(layoutInflater)
-//        Toast.makeText(context, "Id : "+login_id, Toast.LENGTH_SHORT).show()
         viewModel = ViewModelProvider(this).get(UsersViewModel::class.java)
         viewModel.getUserbyId(login_id)
         viewModel.user.observe(viewLifecycleOwner, Observer{ response ->
-//            Toast.makeText(context, "Username = "+response.username, Toast.LENGTH_SHORT).show()
             binding.username.text=response.username
         })
+
+        showUang()
         welcome()
+        redirectPP()
         // Inflate the layout for this fragment
         return binding.root
     }
+
+    fun showUang(){
+        //        show total pemasukan
+        viewModelUang = ViewModelProvider(this).get(UangViewModel::class.java)
+        viewModelUang.getSemuaPemasukan(login_id)
+        viewModelUang.SemuaPemasukan.observe(viewLifecycleOwner, Observer { response ->
+            Log.e("GetDataSemua", response.total_money.toString())
+//            if (response.total_money != null) {
+            binding.showtotalPemasukanHomeTextView.text = "Rp. " + response.total_money.toString()
+//            } else {
+//                binding.showtotalPemasukanHomeTextView.text = "Rp. 0"
+//            }
+        })
+    }
+
+    fun redirectPP(){
+//       intent ke Recycler View dengan status berbeda
+        binding.pemasukanHomeButton.setOnClickListener{
+            val myIntent = Intent(context, PemasukanPengeluaranActivity::class.java).apply {
+                putExtra("id", login_id)
+                putExtra("statusPP", "Pemasukan")
+            }
+            startActivity(myIntent)
+        }
+
+        binding.pengeluaranHomeButton.setOnClickListener {
+            val myIntent = Intent(context, PemasukanPengeluaranActivity::class.java).apply {
+                putExtra("id", login_id)
+                putExtra("statusPP", "Pengeluaran")
+            }
+            startActivity(myIntent)
+        }
+    }
+
     fun welcome() {
         //get current local time
         val currentDay= Calendar.getInstance().get(Calendar.DAY_OF_WEEK)

@@ -13,21 +13,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UsersViewModel @Inject constructor(private val repository: EndPointRepository) : ViewModel() {
-    //    private val justAUser = DataUser(
-//        email = "joseph@gmail.com",
-//        id = 3,
-//        image = "kebaya",
-//        password = "1245",
-//        username = "josephkeren"
-//    )
-//    create User insert to api
-//    fun addUser(userdataX: DataUser)=viewModelScope.launch {
-//        repository.addUser(userdataX)
-//    }
+    //    add user
     fun addUser(email:String,username:String,image:String,password:String)=
         repository.addUser(email,username,image,password)
 
+//    login user
     fun loginUser(email:String,password:String)=repository.loginUser(email,password)
+
+//    update user
+    fun updateUser(id:String,email:String,username:String,image:String,password:String)=
+        repository.updateUser(id,email,username,image,password)
 
     suspend fun getUserById(id:Int)=repository.getUserById(id)
 
@@ -40,8 +35,7 @@ class UsersViewModel @Inject constructor(private val repository: EndPointReposit
         get() = _user
 
     fun getUserbyId(id:Int) = viewModelScope.launch {
-        repository.getUserById(id).let {
-                response ->
+        repository.getUserById(id).let { response ->
             if (response.isSuccessful){
                 _user.postValue(response.body())
             }else{

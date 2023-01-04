@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joseph.projekakhir.model.Plan
 import com.joseph.projekakhir.repository.PlannerRepository
+import com.joseph.projekakhir.view.MainActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,15 +16,18 @@ import javax.inject.Inject
 class PlannerViewModel @Inject constructor(private val repository: PlannerRepository) :
     ViewModel() {
     //    add planner
-    fun AddPlaner(id_user: Int, name: String, price: Int, time: Int)=repository.addPlanner(id_user, name, price, time)
+    fun addPlaner(id_user: String, name: String, price: String, time: String)=repository.addPlanner(id_user, name, price, time)
 
-    //get now playing data
+    //   update planner
+    fun updatePlan(id: String, name: String, price: String, time: String)=repository.updatePlan(id, name, price, time)
+
+    //get planner data
     val _plan: MutableLiveData<Plan> by lazy {
         MutableLiveData<Plan>()
     }
     val plan: LiveData<Plan> get()=_plan
     fun getPlan()=viewModelScope.launch {
-        repository.getPlanner().let { response ->
+        repository.getPlanner(MainActivity.login_id).let { response ->
             if (response.isSuccessful) {
                 _plan.postValue(response.body() as Plan)
             } else {
@@ -32,6 +36,7 @@ class PlannerViewModel @Inject constructor(private val repository: PlannerReposi
         }
     }
 
-
+//    delete plan
+    fun deletePlan(id: String)=repository.deletePlan(id)
 }
 

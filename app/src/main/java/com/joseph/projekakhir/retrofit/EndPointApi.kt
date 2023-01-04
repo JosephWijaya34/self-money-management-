@@ -16,6 +16,22 @@ interface EndPointApi {
         @Field("password") password: String
     ): Call<SubmitRegister>
 
+    @FormUrlEncoded
+    @PATCH("user")
+    fun updateUser(
+        @Field("id") id: String,
+        @Field("email") email: String,
+        @Field("username") username: String,
+        @Field("image") image: String,
+        @Field("password") password: String
+    ): Call<Users>
+
+    //   get user by id
+    @GET("user/{id}")
+    suspend fun getUserById(
+        @Path("id") id: Int
+    ): Response<Users>
+
     //currency
     @GET("https://api.frankfurter.app/latest")
     suspend fun getRates(
@@ -31,22 +47,67 @@ interface EndPointApi {
     ): Call<SubmitLogin>
 
     //    planner api
-    @GET("plan")
+    @GET("plan/{id}")
     suspend fun ambilPlan(
+        @Path("id") id: Int
     ): Response<Plan>
+
+    @FormUrlEncoded
+    @PATCH("plan")
+    fun updatePlan(
+        @Field("id") id: String,
+        @Field("name") name: String,
+        @Field("price") price: String,
+        @Field("time") time: String
+    ): Call<UpdatePlanner>
 
     @FormUrlEncoded
     @POST("plan")
     fun addPlan(
-        @Field("id_user") id_user: Int,
+        @Field("id_user") id_user: String,
         @Field("name") name: String,
-        @Field("price") price: Int,
-        @Field("time") time: Int
-    ): Call<addPlanner>
+        @Field("price") price: String,
+        @Field("time") time: String
+    ): Call<AddPlanner>
 
-    //   get user by id
-    @GET("user/{id}")
-    suspend fun getUserById(
+//    delete plan
+    @DELETE("plan")
+    fun deletePlan(
+        @Query("id") id: String
+    ): Call<UpdatePlanner>
+
+//    create tabel uang
+    @FormUrlEncoded
+    @POST("pemasukan")
+    fun addPemasukan(
+        @Field("id_user") id_user: String,
+        @Field("total_money") total_money: String,
+        @Field("note") note: String,
+        @Field("status") status: String
+    ): Call<AddPemasukan>
+
+//    get uang pemasukan by id
+    @GET("moneyPemasukan/{id}")
+    suspend fun ambilUangPemasukan(
         @Path("id") id: Int
-    ): Response<Users>
+    ): Response<Money>
+
+//    get uang pengeluaran by id
+    @GET("moneyPengeluaran/{id}")
+    suspend fun ambilUangPengeluaran(
+        @Path("id") id: Int
+    ): Response<Money>
+
+//    get jumlah pemasukan by id
+    @GET("moneyTotalPemasukan/{id}")
+    suspend fun ambilSemuaPemasukan(
+        @Path("id") id: Int
+    ): Response<DataMoney>
+
+//    get jumlah pengeluaran by id
+    @GET("moneyTotalPengeluaran/{id}")
+    suspend fun ambilSemuaPengeluaran(
+        @Path("id") id: Int
+    ): Response<DataMoney>
+
 }
