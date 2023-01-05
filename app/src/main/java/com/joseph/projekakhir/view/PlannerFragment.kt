@@ -51,6 +51,7 @@ class PlannerFragment : Fragment() {
         return strFormat
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
