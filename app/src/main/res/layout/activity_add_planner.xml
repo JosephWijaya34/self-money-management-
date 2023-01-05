@@ -21,20 +21,20 @@
 
   <ImageView
       android:id="@+id/InputPlanner_img"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="125dp"
+      android:layout_height="125dp"
       android:layout_marginTop="75dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/ic_launcher_foreground" />
+      app:srcCompat="@drawable/task" />
 
   <androidx.cardview.widget.CardView
       android:id="@+id/namaBarang_cardView"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="30dp"
-      android:layout_marginTop="30dp"
+      android:layout_marginTop="50dp"
       android:layout_marginEnd="30dp"
       app:cardCornerRadius="15dp"
       app:cardElevation="10dp"
@@ -115,7 +115,7 @@
       android:layout_width="0dp"
       android:layout_height="60dp"
       android:layout_marginStart="30dp"
-      android:layout_marginTop="20dp"
+      android:layout_marginTop="50dp"
       android:layout_marginEnd="30dp"
       android:backgroundTint="#3862F8"
       android:text="Simpan"

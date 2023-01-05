@@ -80,7 +80,6 @@ class HomeFragment : Fragment() {
                 binding.plannerRVHomeFragment.adapter=adapterplaner
                 binding.addgambarPlanImageView.visibility=View.GONE
             } else {
-                Toast.makeText(context, "Data Kosong", Toast.LENGTH_SHORT).show()
                 binding.addgambarPlanImageView.visibility=View.VISIBLE
             }
         })

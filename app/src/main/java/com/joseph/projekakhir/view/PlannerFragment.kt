@@ -92,8 +92,10 @@ class PlannerFragment : Fragment() {
                 listData=response.data
                 adapterplaner=PlanAdapter(listData, this)
                 binding.PlannerRV.adapter=adapterplaner
+                binding.imgAddPlanImgView.visibility=View.INVISIBLE
             } else {
                 Toast.makeText(context, "Data Kosong", Toast.LENGTH_SHORT).show()
+                binding.imgAddPlanImgView.visibility=View.VISIBLE
             }
         })
     }
@@ -103,9 +105,12 @@ class PlannerFragment : Fragment() {
         viewModel.getPlan()
         viewModel.plan.observe(viewLifecycleOwner, Observer { response ->
             listData=response.data
+            Log.e("listData", listData.toString())
             if (listData.isEmpty()) {
                 binding.PlannerRV.visibility=View.INVISIBLE
+                binding.imgAddPlanImgView.visibility=View.VISIBLE
             } else {
+                binding.imgAddPlanImgView.visibility=View.INVISIBLE
                 adapterplaner.notifyDataSetChanged()
             }
 
