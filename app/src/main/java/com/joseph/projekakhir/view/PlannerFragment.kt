@@ -1,12 +1,14 @@
 package com.joseph.projekakhir.view
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +24,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.NumberFormat
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -36,6 +40,16 @@ class PlannerFragment : Fragment() {
     private lateinit var viewModel: PlannerViewModel
     private lateinit var viewModelUang: UangViewModel
     private lateinit var listData: List<Data>
+
+    @RequiresApi(Build.VERSION_CODES.N)
+
+    fun Any.convertRupiah(): String {
+        val localId = Locale("in", "ID")
+        // make space between currency and number
+        val formatter = NumberFormat.getCurrencyInstance(localId)
+        val strFormat = formatter.format(this)
+        return strFormat
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,13 +68,14 @@ class PlannerFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun showDataPlannerPage(){
         //        show total uang
         viewModelUang=ViewModelProvider(this).get(UangViewModel::class.java)
         viewModelUang.getSemuaUang(MainActivity.login_id)
         viewModelUang.semuaUang.observe(viewLifecycleOwner, Observer { response ->
             if (response.data.total_money != 0) {
-                binding.showTotalUangPlannerPageTextView.text="Rp. " + response.data.total_money.toString()
+                binding.showTotalUangPlannerPageTextView.text=response.data.total_money.convertRupiah()
             } else {
                 binding.showTotalUangPlannerPageTextView.text="Rp. 0"
             }
