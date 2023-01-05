@@ -102,7 +102,7 @@ class HomeFragment : Fragment() {
         viewModelUang.getSemuaPengeluaran(login_id)
         viewModelUang.SemuaPengeluaran.observe(viewLifecycleOwner, Observer { response ->
             if (response.data.total_money != 0) {
-                binding.showtotalPengeluaranHomeTextView.text="response.data.total_money.convertRupiah()"
+                binding.showtotalPengeluaranHomeTextView.text=response.data.total_money.convertRupiah()
             } else {
                 binding.showtotalPemasukanHomeTextView.text="Rp. 0"
             }
