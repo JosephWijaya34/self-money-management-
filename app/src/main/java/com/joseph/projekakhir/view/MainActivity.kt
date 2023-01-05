@@ -15,11 +15,13 @@ class MainActivity : AppCompatActivity() {
 //    private lateinit var viewModel : PlannerViewModel
 
     companion object {
+
         var login_id=0
         var login = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         viewBind=ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBind.root)
