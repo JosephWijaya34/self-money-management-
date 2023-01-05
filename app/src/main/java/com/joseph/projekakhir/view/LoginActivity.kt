@@ -10,6 +10,7 @@ import com.joseph.projekakhir.R
 import com.joseph.projekakhir.databinding.ActivityLoginBinding
 import com.joseph.projekakhir.model.SubmitLogin
 import com.joseph.projekakhir.model.SubmitRegister
+import com.joseph.projekakhir.view.MainActivity.Companion.login
 import com.joseph.projekakhir.viewmodel.UsersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
@@ -65,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             val myIntent = Intent(this@LoginActivity, MainActivity::class.java)
                                 .putExtra("login_id", response.body()?.user_id)
+                            login = true
 //                            Toast.makeText(this@LoginActivity, response.body()?.user_id.toString(), Toast.LENGTH_SHORT).show()
                             startActivity(myIntent)
                         } else {

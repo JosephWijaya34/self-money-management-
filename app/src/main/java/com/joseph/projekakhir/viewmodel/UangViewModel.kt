@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.joseph.projekakhir.model.DataMoney
 import com.joseph.projekakhir.model.Money
+import com.joseph.projekakhir.model.MoneyTotal
 import com.joseph.projekakhir.model.Users
 import com.joseph.projekakhir.repository.MoneyRepository
 import com.joseph.projekakhir.view.MainActivity
@@ -19,6 +20,13 @@ class UangViewModel @Inject constructor(private val repository: MoneyRepository)
     //    add uang
     fun addPemasukan(id_user:String,total_money:String,note:String,status:String)=
         repository.addPemasukan(id_user,total_money,note,status)
+
+    //  update uang
+    fun updatePemasukan(id:String,total_money:String,note:String,status:String)=
+        repository.updatePemasukan(id,total_money,note,status)
+
+    //    delete uang
+    fun deleteMoney(id:String)=repository.deleteMoney(id)
 
     //get Uang Pemasukan data
     val _moneyPemasukan: MutableLiveData<Money> by lazy {
@@ -49,25 +57,51 @@ class UangViewModel @Inject constructor(private val repository: MoneyRepository)
     }
 
 //    get total money data
-val _SemuaPemasukan: MutableLiveData<DataMoney> by lazy {
-    MutableLiveData<DataMoney>()
+val _SemuaPemasukan: MutableLiveData<MoneyTotal> by lazy {
+    MutableLiveData<MoneyTotal>()
 }
-    val SemuaPemasukan: LiveData<DataMoney> get()=_SemuaPemasukan
+    val SemuaPemasukan: LiveData<MoneyTotal> get()=_SemuaPemasukan
 
     fun getSemuaPemasukan(id:Int)=viewModelScope.launch {
         repository.ambilSemuaPemasukan(id).let { response ->
             if (response.isSuccessful) {
-                _SemuaPemasukan.postValue(response.body() as DataMoney)
+                _SemuaPemasukan.postValue(response.body() as MoneyTotal)
             } else {
                 Log.e("Get Data", "Failed!")
             }
         }
     }
 
-    //    update uang
-//    fun updateUang(id:String,id_user:String,total_money:String,note:String,status:String)=
-//        repository.updateUang(id,id_user,total_money,note,status)
+    val _SemuaPengeluaran: MutableLiveData<MoneyTotal> by lazy {
+        MutableLiveData<MoneyTotal>()
+    }
+    val SemuaPengeluaran: LiveData<MoneyTotal> get()=_SemuaPengeluaran
 
-    //    delete uang
-//    fun deleteUang(id:String)=repository.deleteUang(id)
+    fun getSemuaPengeluaran(id:Int)=viewModelScope.launch {
+        repository.ambilSemuaPengeluaran(id).let { response ->
+            if (response.isSuccessful) {
+                _SemuaPengeluaran.postValue(response.body() as MoneyTotal)
+            } else {
+                Log.e("Get Data", "Failed!")
+            }
+        }
+    }
+
+//    get money total
+    val _semuaUang: MutableLiveData<MoneyTotal> by lazy {
+        MutableLiveData<MoneyTotal>()
+    }
+
+    val semuaUang: LiveData<MoneyTotal> get()=_semuaUang
+
+    fun getSemuaUang(id:Int)=viewModelScope.launch {
+        repository.ambilSemuaUang(id).let { response ->
+            if (response.isSuccessful) {
+                _semuaUang.postValue(response.body() as MoneyTotal)
+            } else {
+                Log.e("Get Data", "Failed!")
+            }
+        }
+    }
+
 }

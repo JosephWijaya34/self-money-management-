@@ -41,6 +41,20 @@ class SettingsFragment : Fragment() {
             viewBind.emailProfileTextView.text=response.email
         })
 
+//        edit user yang lagi login
+        viewBind.editUserCardView.setOnClickListener {
+            viewModel = ViewModelProvider(this).get(UsersViewModel::class.java)
+            viewModel.getUserbyId(login_id)
+            viewModel.user.observe(viewLifecycleOwner, Observer{ response ->
+                val intent = Intent(context,RegisterActivity::class.java).apply {
+                    putExtra("editUser","editUser")
+                    putExtra("id", login_id)
+                    putExtra("email", response.email)
+                }
+                startActivity(intent)
+            })
+        }
+
 //        masuk change password
         viewBind.changepasswordSettingsCardView.setOnClickListener {
             val intent = Intent(activity, ChangePasswordActivity::class.java).apply {

@@ -30,7 +30,7 @@
         app:srcCompat="@drawable/backgrounditem" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tagLineRegis_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/backRegister_imageButton" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/isiRegis_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -53,7 +53,7 @@
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/tagLineRegis_textView" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/namaPenggunaReg_cardView"

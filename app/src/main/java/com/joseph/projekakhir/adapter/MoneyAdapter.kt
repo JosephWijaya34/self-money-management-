@@ -1,5 +1,6 @@
 package com.joseph.projekakhir.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import com.joseph.projekakhir.R
 import com.joseph.projekakhir.databinding.CardUangBinding
 import com.joseph.projekakhir.databinding.PlannerCardBinding
 import com.joseph.projekakhir.model.DataMoney
+import com.joseph.projekakhir.view.DetailPemasukanPengeluaranActivity
+import com.joseph.projekakhir.view.MainActivity
 
 
 class MoneyAdapter(private val dataSet: List<DataMoney>) :
@@ -36,10 +39,21 @@ class MoneyAdapter(private val dataSet: List<DataMoney>) :
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-//        show data
+        //        show data
         viewHolder.binding.idUangCard.text = dataSet[position].id.toString()
         viewHolder.binding.kategoriCard.text = dataSet[position].note
         viewHolder.binding.nominalUangCard.text=dataSet[position].total_money.toString()
+        // move to detail activity
+        viewHolder.binding.cardUangCardView.setOnClickListener {
+            val myIntent = Intent(viewHolder.itemView.context, DetailPemasukanPengeluaranActivity::class.java).apply {
+                putExtra("user_id",MainActivity.login_id)
+                putExtra("id", dataSet[position].id.toString())
+                putExtra("note", dataSet[position].note)
+                putExtra("total_money", dataSet[position].total_money.toString())
+                putExtra("statusPPDetail",dataSet[position].status)
+            }
+            viewHolder.itemView.context.startActivity(myIntent)
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

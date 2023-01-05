@@ -30,7 +30,9 @@ class AddFragment : Fragment() {
 
 //        masuk tambah pemasukan
         viewBind.addPemasukanCardView.setOnClickListener{
-            val myIntent = Intent(context, TambahPemasukanActivity::class.java).putExtra("id", login_id)
+            val myIntent = Intent(context, TambahPemasukanActivity::class.java).apply {
+                putExtra("id", login_id)
+            }
             startActivity(myIntent)
 //            val fragment = AddPemasukanFragment()
 //            val fragmentManager = parentFragmentManager

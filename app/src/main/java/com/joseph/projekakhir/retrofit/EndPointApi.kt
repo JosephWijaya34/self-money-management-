@@ -24,7 +24,7 @@ interface EndPointApi {
         @Field("username") username: String,
         @Field("image") image: String,
         @Field("password") password: String
-    ): Call<Users>
+    ): Call<Updateuser>
 
     //   get user by id
     @GET("user/{id}")
@@ -52,6 +52,7 @@ interface EndPointApi {
         @Path("id") id: Int
     ): Response<Plan>
 
+//    update plan
     @FormUrlEncoded
     @PATCH("plan")
     fun updatePlan(
@@ -86,6 +87,22 @@ interface EndPointApi {
         @Field("status") status: String
     ): Call<AddPemasukan>
 
+//    update tabel uang
+    @FormUrlEncoded
+    @PATCH("money")
+    fun updatePemasukan(
+        @Field("id") id: String,
+        @Field("total_money") total_money: String,
+        @Field("note") note: String,
+        @Field("status") status: String
+    ): Call<AddPemasukan>
+
+//    delete tabel uang
+    @DELETE("money")
+    fun deleteMoney(
+        @Query("id") id: String
+    ): Call<AddPemasukan>
+
 //    get uang pemasukan by id
     @GET("moneyPemasukan/{id}")
     suspend fun ambilUangPemasukan(
@@ -102,12 +119,17 @@ interface EndPointApi {
     @GET("moneyTotalPemasukan/{id}")
     suspend fun ambilSemuaPemasukan(
         @Path("id") id: Int
-    ): Response<DataMoney>
+    ): Response<MoneyTotal>
 
 //    get jumlah pengeluaran by id
     @GET("moneyTotalPengeluaran/{id}")
     suspend fun ambilSemuaPengeluaran(
         @Path("id") id: Int
-    ): Response<DataMoney>
+    ): Response<MoneyTotal>
 
+//    get money total
+    @GET("moneyTotal/{id}")
+    suspend fun ambilSemuaUang(
+        @Path("id") id: Int
+    ): Response<MoneyTotal>
 }

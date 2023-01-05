@@ -17,6 +17,7 @@ import com.joseph.projekakhir.model.AddPlanner
 import com.joseph.projekakhir.model.Data
 import com.joseph.projekakhir.model.UpdatePlanner
 import com.joseph.projekakhir.viewmodel.PlannerViewModel
+import com.joseph.projekakhir.viewmodel.UangViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,6 +34,7 @@ class PlannerFragment : Fragment() {
     private lateinit var binding: FragmentPlannerBinding
     private lateinit var adapterplaner: PlanAdapter
     private lateinit var viewModel: PlannerViewModel
+    private lateinit var viewModelUang: UangViewModel
     private lateinit var listData: List<Data>
 
     override fun onCreateView(
@@ -40,6 +42,32 @@ class PlannerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentPlannerBinding.inflate(inflater, container, false)
+//      panggil function
+        recyclerViewPlanner()
+        showDataPlannerPage()
+
+//        add plan
+        binding.addPlannerPageTextView.setOnClickListener {
+            val myIntent=Intent(context, AddPlannerActivity::class.java).putExtra("login_id", 0)
+            startActivity(myIntent)
+        }
+        return binding.root
+    }
+
+    fun showDataPlannerPage(){
+        //        show total uang
+        viewModelUang=ViewModelProvider(this).get(UangViewModel::class.java)
+        viewModelUang.getSemuaUang(MainActivity.login_id)
+        viewModelUang.semuaUang.observe(viewLifecycleOwner, Observer { response ->
+            if (response.data.total_money != 0) {
+                binding.showTotalUangPlannerPageTextView.text="Rp. " + response.data.total_money.toString()
+            } else {
+                binding.showTotalUangPlannerPageTextView.text="Rp. 0"
+            }
+        })
+    }
+
+    fun recyclerViewPlanner(){
         viewModel=ViewModelProvider(this).get(PlannerViewModel::class.java)
         viewModel.getPlan()
         viewModel.plan.observe(viewLifecycleOwner, Observer { response ->
@@ -48,18 +76,10 @@ class PlannerFragment : Fragment() {
                 listData=response.data
                 adapterplaner=PlanAdapter(listData, this)
                 binding.PlannerRV.adapter=adapterplaner
-                Log.e("data3434", response.data.toString())
             } else {
                 Toast.makeText(context, "Data Kosong", Toast.LENGTH_SHORT).show()
             }
         })
-
-//        add plan
-        binding.addPlannerPageTextView.setOnClickListener {
-            val myIntent=Intent(context, AddPlannerActivity::class.java).putExtra("login_id", 0)
-            startActivity(myIntent)
-        }
-        return binding.root
     }
 
     fun updateAdapter() {

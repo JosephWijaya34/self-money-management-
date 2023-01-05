@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.joseph.projekakhir.databinding.ActivityRegisterBinding
 import com.joseph.projekakhir.model.SubmitRegister
+import com.joseph.projekakhir.model.Updateuser
+import com.joseph.projekakhir.view.MainActivity.Companion.login_id
 import com.joseph.projekakhir.viewmodel.UsersViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import retrofit2.Call
@@ -26,16 +28,92 @@ class RegisterActivity : AppCompatActivity() {
         viewBind=ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(viewBind.root)
 
-        registerClick()
+        try {
+            if (intent.getStringExtra("editUser") == "editUser") {
+                editUser()
+            }else{
+                registerClick()
+            }
+        }catch (e:Exception){
+            Log.e("Error",e.message.toString())
+        }
+    }
 
-//        back button
+    private fun editUser(){
         viewBind.backRegisterImageButton.setOnClickListener {
-            val myIntent = Intent(this, IntroActivity::class.java)
+            val myIntent = Intent(this, MainActivity::class.java).apply {
+                putExtra("editUser", "editUser")
+            }
             startActivity(myIntent)
+        }
+        val emailUser = intent.getStringExtra("email").toString()
+        viewBind.tagLineRegisTextView.text="Edit Profile"
+        viewBind.isiRegisTextView.text="edit profil anda"
+        viewBind.daftarButton.text="Simpan Edit"
+        viewBind.EmailRegTextInputEditText.setText(emailUser)
+        // make email edit text readonly
+        viewBind.EmailRegTextInputEditText.isEnabled=false
+
+            //        edit data
+        viewBind.daftarButton.setOnClickListener {
+            val id = login_id.toString()
+            val username=viewBind.namaPenggunaRegTextInputEditText.text.toString().trim()
+            val email=viewBind.EmailRegTextInputEditText.text.toString().trim()
+            val image = ""
+            val password=viewBind.passwordRegTextInputEditText.text.toString().trim()
+
+            //            checker
+            if (username.isEmpty()) {
+                viewBind.namaPenggunaRegTextInputLayout.error="Tolong isi kolom nama"
+            } else {
+                viewBind.namaPenggunaRegTextInputLayout.error=""
+            }
+
+            if (email.isEmpty()) {
+                viewBind.EmailRegTextInputLayout.error="Tolong isi kolom email"
+            } else {
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    viewBind.EmailRegTextInputLayout.error="Tolong masukan alamat email yang benar"
+                } else {
+                    viewBind.EmailRegTextInputLayout.error=""
+                }
+            }
+
+            if (password.isEmpty()) {
+                viewBind.passwordRegTextInputLayout.error="Tolong isi kolom password"
+            } else {
+                viewBind.passwordRegTextInputLayout.error=""
+            }
+
+            if (username.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()){
+                viewModel=ViewModelProvider(this)[UsersViewModel::class.java]
+                viewModel.updateUser(id,email,username,image,password).enqueue(object :Callback<Updateuser> {
+                    override fun onResponse(call: Call<Updateuser>, response: Response<Updateuser>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(this@RegisterActivity, "Berhasil Edit Akun", Toast.LENGTH_SHORT).show()
+                            val myIntent = Intent(this@RegisterActivity, MainActivity::class.java).apply {
+                                putExtra("editUser", "editUser")
+                            }
+                            startActivity(myIntent)
+                        } else {
+                            Toast.makeText(this@RegisterActivity, "Gagal Edit Akun", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Updateuser>, t: Throwable) {
+                        Log.d("RegisterActivity", "onFailure: ${t.message}")
+                    }
+                })
+            }
         }
     }
 
     private fun registerClick() {
+        //        back button
+        viewBind.backRegisterImageButton.setOnClickListener {
+            val myIntent = Intent(this, IntroActivity::class.java)
+            startActivity(myIntent)
+        }
         viewBind.daftarButton.setOnClickListener {
             val username=viewBind.namaPenggunaRegTextInputEditText.text.toString().trim()
             val email=viewBind.EmailRegTextInputEditText.text.toString().trim()
