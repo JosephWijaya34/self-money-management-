@@ -2,15 +2,19 @@ package com.joseph.projekakhir.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.joseph.projekakhir.adapter.HomePlanAdapter
 import com.joseph.projekakhir.databinding.FragmentHomeBinding
+import com.joseph.projekakhir.model.Data
 import com.joseph.projekakhir.view.MainActivity.Companion.login_id
+import com.joseph.projekakhir.viewmodel.PlannerViewModel
 import com.joseph.projekakhir.viewmodel.UangViewModel
 import com.joseph.projekakhir.viewmodel.UsersViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +31,9 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: UsersViewModel
     private lateinit var viewModelUang: UangViewModel
+    private lateinit var viewModelPlan: PlannerViewModel
+    private lateinit var adapterplaner: HomePlanAdapter
+    private lateinit var listData: List<Data>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +49,27 @@ class HomeFragment : Fragment() {
         showUang()
         welcome()
         redirectPP()
+        showDataPlan()
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    fun showDataPlan(){
+        viewModelPlan=ViewModelProvider(this).get(PlannerViewModel::class.java)
+        viewModelPlan.getPlan()
+        viewModelPlan.plan.observe(viewLifecycleOwner, Observer { response ->
+            binding.plannerRVHomeFragment.layoutManager=
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            if (response.data != null) {
+                listData=response.data
+                adapterplaner=HomePlanAdapter(listData)
+                binding.plannerRVHomeFragment.adapter=adapterplaner
+                binding.addgambarPlanImageView.visibility=View.GONE
+            } else {
+                Toast.makeText(context, "Data Kosong", Toast.LENGTH_SHORT).show()
+                binding.addgambarPlanImageView.visibility=View.VISIBLE
+            }
+        })
     }
 
     fun showUang() {
