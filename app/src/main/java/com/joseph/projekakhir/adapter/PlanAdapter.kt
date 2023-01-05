@@ -4,11 +4,13 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.ui.layout.ParentDataModifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -21,10 +23,22 @@ import com.joseph.projekakhir.view.AddPlannerActivity
 import com.joseph.projekakhir.view.MainActivity
 import com.joseph.projekakhir.view.PlannerFragment
 import com.joseph.projekakhir.viewmodel.PlannerViewModel
+import java.text.NumberFormat
+import java.util.*
 
 
 class PlanAdapter(private val dataSet: List<Data>, private val mcontext: PlannerFragment) :
     RecyclerView.Adapter<PlanAdapter.ViewHolder>() {
+
+    @RequiresApi(Build.VERSION_CODES.N)
+
+    fun Any.convertRupiah(): String {
+        val localId = Locale("in", "ID")
+        // make space between currency and number
+        val formatter = NumberFormat.getCurrencyInstance(localId)
+        val strFormat = formatter.format(this)
+        return strFormat
+    }
 
     /**
      * Provide a reference to the type of views that you are using
@@ -44,6 +58,7 @@ class PlanAdapter(private val dataSet: List<Data>, private val mcontext: Planner
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
         // Get element from your dataset at this position and replace the
@@ -53,7 +68,7 @@ class PlanAdapter(private val dataSet: List<Data>, private val mcontext: Planner
         viewHolder.binding.idPlannerRVTextView.text = dataSet[position].id.toString()
         viewHolder.binding.plannerItemRVTextView.text = dataSet[position].name
         viewHolder.binding.dateItemRVTextView.text = dataSet[position].time.toString()
-        viewHolder.binding.pricePlannerRVTextView.text = dataSet[position].price.toString()
+        viewHolder.binding.pricePlannerRVTextView.text = dataSet[position].price.convertRupiah()
 
 //        Glide.with(viewHolder.itemView.context)
 //                .load(dataSet[position].w)

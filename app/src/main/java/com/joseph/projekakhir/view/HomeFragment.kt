@@ -1,11 +1,13 @@
 package com.joseph.projekakhir.view
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +20,7 @@ import com.joseph.projekakhir.viewmodel.PlannerViewModel
 import com.joseph.projekakhir.viewmodel.UangViewModel
 import com.joseph.projekakhir.viewmodel.UsersViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.NumberFormat
 import java.util.*
 
 /**
@@ -35,6 +38,17 @@ class HomeFragment : Fragment() {
     private lateinit var adapterplaner: HomePlanAdapter
     private lateinit var listData: List<Data>
 
+    @RequiresApi(Build.VERSION_CODES.N)
+
+    fun Any.convertRupiah(): String {
+        val localId = Locale("in", "ID")
+        // make space between currency and number
+        val formatter = NumberFormat.getCurrencyInstance(localId)
+        val strFormat = formatter.format(this)
+        return strFormat
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -72,13 +86,14 @@ class HomeFragment : Fragment() {
         })
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun showUang() {
         //        show total pemasukan
         viewModelUang=ViewModelProvider(this).get(UangViewModel::class.java)
         viewModelUang.getSemuaPemasukan(login_id)
         viewModelUang.SemuaPemasukan.observe(viewLifecycleOwner, Observer { response ->
             if (response.data.total_money != 0) {
-                binding.showtotalPemasukanHomeTextView.text="Rp. " + response.data.total_money.toString()
+                binding.showtotalPemasukanHomeTextView.text=response.data.total_money.convertRupiah()
             } else {
                 binding.showtotalPemasukanHomeTextView.text="Rp. 0"
             }
@@ -87,7 +102,7 @@ class HomeFragment : Fragment() {
         viewModelUang.getSemuaPengeluaran(login_id)
         viewModelUang.SemuaPengeluaran.observe(viewLifecycleOwner, Observer { response ->
             if (response.data.total_money != 0) {
-                binding.showtotalPengeluaranHomeTextView.text="Rp. " + response.data.total_money.toString()
+                binding.showtotalPengeluaranHomeTextView.text="response.data.total_money.convertRupiah()"
             } else {
                 binding.showtotalPemasukanHomeTextView.text="Rp. 0"
             }
@@ -96,7 +111,7 @@ class HomeFragment : Fragment() {
         viewModelUang.getSemuaUang(login_id)
         viewModelUang.semuaUang.observe(viewLifecycleOwner, Observer { response ->
             if (response.data.total_money != 0) {
-                binding.jumlahsaldoTotalTextViewHF.text="Rp. " + response.data.total_money.toString()
+                binding.jumlahsaldoTotalTextViewHF.text=response.data.total_money.convertRupiah()
             } else {
                 binding.jumlahsaldoTotalTextViewHF.text="Rp. 0"
             }
