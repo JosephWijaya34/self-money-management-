@@ -69,6 +69,7 @@ class LoginActivity : AppCompatActivity() {
                             login = true
 //                            Toast.makeText(this@LoginActivity, response.body()?.user_id.toString(), Toast.LENGTH_SHORT).show()
                             startActivity(myIntent)
+                            finish()
                         } else {
                             Toast.makeText(this@LoginActivity, "Login gagal", Toast.LENGTH_SHORT).show()
                         }

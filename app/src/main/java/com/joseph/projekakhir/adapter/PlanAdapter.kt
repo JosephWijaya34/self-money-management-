@@ -19,9 +19,7 @@ import com.joseph.projekakhir.R
 import com.joseph.projekakhir.databinding.PlannerCardBinding
 import com.joseph.projekakhir.model.Data
 import com.joseph.projekakhir.model.Plan
-import com.joseph.projekakhir.view.AddPlannerActivity
-import com.joseph.projekakhir.view.MainActivity
-import com.joseph.projekakhir.view.PlannerFragment
+import com.joseph.projekakhir.view.*
 import com.joseph.projekakhir.viewmodel.PlannerViewModel
 import java.text.NumberFormat
 import java.util.*
@@ -67,7 +65,7 @@ class PlanAdapter(private val dataSet: List<Data>, private val mcontext: Planner
 //        show data
         viewHolder.binding.idPlannerRVTextView.text = dataSet[position].id.toString()
         viewHolder.binding.plannerItemRVTextView.text = dataSet[position].name
-        viewHolder.binding.dateItemRVTextView.text = dataSet[position].time.toString()
+        viewHolder.binding.dateItemRVTextView.text = dataSet[position].time.toString() + " Hari"
         viewHolder.binding.pricePlannerRVTextView.text = dataSet[position].price.convertRupiah()
 
 //        Glide.with(viewHolder.itemView.context)
@@ -75,28 +73,39 @@ class PlanAdapter(private val dataSet: List<Data>, private val mcontext: Planner
 //                .into(viewHolder.binding.plannerItemRVImageView)
 
 //        edit planner
-        viewHolder.binding.editPlannerImageView.setOnClickListener{
-            val myIntent = Intent(viewHolder.itemView.context, AddPlannerActivity::class.java).putExtra("status", "edit")
-            myIntent.putExtra("id", dataSet[position].id.toString())
-            myIntent.putExtra("name", dataSet[position].name)
-            myIntent.putExtra("price", dataSet[position].price.toString())
-            myIntent.putExtra("time", dataSet[position].time.toString())
+        viewHolder.binding.plannerItemRVCardView.setOnClickListener{
+//            langsung edit
+//            val myIntent = Intent(viewHolder.itemView.context, AddPlannerActivity::class.java).putExtra("status", "edit")
+//            myIntent.putExtra("id", dataSet[position].id.toString())
+//            myIntent.putExtra("name", dataSet[position].name)
+//            myIntent.putExtra("price", dataSet[position].price.toString())
+//            myIntent.putExtra("time", dataSet[position].time.toString())
+//            viewHolder.itemView.context.startActivity(myIntent)
+
+            val myIntent = Intent(viewHolder.itemView.context, DetailPlannerActivity::class.java).apply {
+                putExtra("user_id",MainActivity.login_id)
+                putExtra("id", dataSet[position].id.toString())
+                putExtra("name", dataSet[position].name)
+                putExtra("price", dataSet[position].price.toString())
+                putExtra("time", dataSet[position].time.toString())
+            }
             viewHolder.itemView.context.startActivity(myIntent)
         }
 
-//        delete planner
-        viewHolder.binding.deletePlannerImageView.setOnClickListener {
-            val alertDialog = AlertDialog.Builder(it.context)
-            alertDialog.apply {
-                setTitle("Konfirmasi")
-                setMessage("Apakah anda yakin untuk menghapus Plan ini?")
-                setNegativeButton("Tidak", { dialogInterface, i -> dialogInterface.dismiss() })
-                setPositiveButton("Iya", { dialogInterface, i -> dialogInterface.dismiss()
-                    mcontext.deletePlan(dataSet[position].id)})
-                alertDialog.show()
-            }
 
-        }
+//        delete planner pake android notify data set change tapi error
+//        viewHolder.binding.deletePlannerImageView.setOnClickListener {
+//            val alertDialog = AlertDialog.Builder(it.context)
+//            alertDialog.apply {
+//                setTitle("Konfirmasi")
+//                setMessage("Apakah anda yakin untuk menghapus Plan ini?")
+//                setNegativeButton("Tidak", { dialogInterface, i -> dialogInterface.dismiss() })
+//                setPositiveButton("Iya", { dialogInterface, i -> dialogInterface.dismiss()
+//                    mcontext.deletePlan(dataSet[position].id)})
+//                alertDialog.show()
+//            }
+//
+//        }
 
     }
 

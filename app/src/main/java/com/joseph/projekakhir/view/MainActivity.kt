@@ -90,6 +90,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(myIntent)
         }else if (intent.getStringExtra("editUser") == "editUser"){
             replaceFragment(SettingsFragment())
+        }else if(intent.getStringExtra("moveToRVPlanner") == "Planner"){
+            replaceFragment(PlannerFragment())
+        }
+
         }
     }
-}

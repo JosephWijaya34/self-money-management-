@@ -55,7 +55,10 @@ class AddPlannerActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<AddPlanner>, response: Response<AddPlanner>) {
                         if (response.isSuccessful) {
                             Toast.makeText(this@AddPlannerActivity, "Berhasil Menambahkan", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@AddPlannerActivity, MainActivity::class.java).putExtra("login_id", MainActivity.login_id)
+                            val intent = Intent(this@AddPlannerActivity, MainActivity::class.java).apply {
+                                putExtra("login_id", MainActivity.login_id)
+                                putExtra("moveToRVPlanner","Planner")
+                            }
                             startActivity(intent)
                             finish()
                         } else {
@@ -104,7 +107,10 @@ class AddPlannerActivity : AppCompatActivity() {
                                 "Berhasil Mengedit Planner",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            val intent = Intent(this@AddPlannerActivity, MainActivity::class.java).putExtra("login_id", MainActivity.login_id)
+                            val intent = Intent(this@AddPlannerActivity, MainActivity::class.java).apply {
+                                putExtra("login_id", MainActivity.login_id)
+                                putExtra("moveToRVPlanner","Planner")
+                            }
                             startActivity(intent)
                             finish()
                         } else {

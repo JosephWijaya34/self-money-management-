@@ -55,14 +55,6 @@ class SettingsFragment : Fragment() {
             })
         }
 
-////        masuk change password
-//        viewBind.changepasswordSettingsCardView.setOnClickListener {
-//            val intent = Intent(activity, ChangePasswordActivity::class.java).apply {
-//                putExtra("id", login_id)
-//            }
-//            startActivity(intent)
-//        }
-
         listener()
         return viewBind.root
     }
@@ -72,6 +64,9 @@ class SettingsFragment : Fragment() {
             login_id = 0
             val myIntent = Intent(context, LoginActivity::class.java)
             startActivity(myIntent)
+            //finish fragment
+            activity?.finish()
+            Toast.makeText(context, "Logout Success", Toast.LENGTH_SHORT).show()
         }
     }
 
